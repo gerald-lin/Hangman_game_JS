@@ -13,12 +13,27 @@ const words = [
   "rester",
   "general",
   "preuve",
-  "os"
+  "os",
+  "planter",
+  "baguette",
+  "rue",
+  "disgracieux",
+  "penitencier",
+  "parapluie"
 ];
 
-const word = getRandomWord();
+var word = getRandomWord();
 const triedLetters = [];
+const result = getRes();
 let count = 0;
+
+function getRes() {
+  const res = [];
+  for (const i of Array(word.length).keys()) {
+    res.push("_");
+  }
+  return res;
+}
 
 function getRandomWord() {
   return words[Math.floor(Math.random() * words.length)];
@@ -35,15 +50,18 @@ function isCorrectLetter() {
       count++;
     }
   }
-  document.getElementById("app").innerHTML += word;
+  document.getElementById("app").innerHTML += result;
   document.getElementById("app").innerHTML += triedLetters;
 }
 
 function displayHiddenWord() {
-  for (const i of Array(word.length).keys()) {
-    document.getElementById("hidden_word").innerHTML += " _";
+  for (const e of result) {
+    document.getElementById("hidden_word").innerHTML += " " + e;
   }
 }
 
-document.getElementById("validate_button").onclick = isCorrectLetter;
+document
+  .getElementById("game_input")
+  .addEventListener("submit", isCorrectLetter);
+
 displayHiddenWord();
