@@ -29,7 +29,8 @@ let count = 0;
 
 function getRes() {
   const res = [];
-  for (const i of Array(word.length).keys()) {
+  //for (const i of Array(word.length).keys()) {
+  for (var i = 0; i < word.length; i++) {
     res.push("_");
   }
   return res;
@@ -41,17 +42,22 @@ function getRandomWord() {
 
 function isCorrectLetter() {
   let letter = document.getElementById("letter").value;
+  const letterIndexes = [];
 
   // verify if the letter is already tried
   if (!triedLetters.includes(letter)) {
     triedLetters.push(letter);
     // verify if the word contains the letter
-    if (word.indexOf(letter) > -1) {
+    for (var i = 0; i < word.length; i++) {
+      if (word[i] === letter) {
+        letterIndexes.push(i);
+      }
+
       count++;
     }
   }
   document.getElementById("app").innerHTML += result;
-  document.getElementById("app").innerHTML += triedLetters;
+  document.getElementById("app").innerHTML += word[0];
 }
 
 function displayHiddenWord() {
