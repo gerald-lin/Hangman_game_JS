@@ -6,17 +6,23 @@
   </head>
 
   <body>
+    <p id="hidden_word">The word is :</p>
     <div id="app"></div>
 
-    <input
-      type="text"
-      id="letter"
-      required
-      minlength="1"
-      maxlength="1"
-      size="2"
-    />
-    <button type="button" onClick="isCorrectLetter()">Validate</button>
+    <form method="get" id="game_input" onsubmit="return false;">
+      <label for="letter">Try a guess :</label>
+      <input
+        name="letter"
+        id="letter"
+        type="text"
+        pattern="[a-z]{1}"
+        title="Only lowercase character accepted !"
+        size="1"
+        maxlength="1"
+        required
+      />
+      <input type="submit" value="Validate" />
+    </form>
 
     <script src="src/index.js"></script>
   </body>
