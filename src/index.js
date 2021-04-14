@@ -15,8 +15,9 @@ const words = [
   "preuve",
   "os"
 ];
+
 const word = getRandomWord();
-const letters = [];
+const triedLetters = [];
 let count = 0;
 
 function getRandomWord() {
@@ -24,8 +25,25 @@ function getRandomWord() {
 }
 
 function isCorrectLetter() {
-  let tmp = document.getElementById("letter").value;
-  if (!tmp in letters) {
-    letters.push(tmp);
+  let letter = document.getElementById("letter").value;
+
+  // verify if the letter is already tried
+  if (!triedLetters.includes(letter)) {
+    triedLetters.push(letter);
+    // verify if the word contains the letter
+    if (word.indexOf(letter) > -1) {
+      count++;
+    }
+  }
+  document.getElementById("app").innerHTML += word;
+  document.getElementById("app").innerHTML += triedLetters;
+}
+
+function displayHiddenWord() {
+  for (const i of Array(word.length).keys()) {
+    document.getElementById("hidden_word").innerHTML += " _";
   }
 }
+
+document.getElementById("validate_button").onclick = isCorrectLetter;
+displayHiddenWord();
