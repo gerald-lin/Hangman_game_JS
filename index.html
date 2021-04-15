@@ -6,10 +6,18 @@
   </head>
 
   <body>
-    <p id="hidden_word">The word is :</p>
+    <div id="display">
+      The word is :
+      <p id="hidden_word"></p>
+    </div>
     <div id="app"></div>
 
-    <form method="get" id="game_input" onsubmit="return false;">
+    <form
+      method="get"
+      id="game_input"
+      autocomplete="off"
+      onsubmit="return false;"
+    >
       <label for="letter">Make a guess :</label>
       <input
         name="letter"

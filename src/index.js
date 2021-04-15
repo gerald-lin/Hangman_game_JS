@@ -13,7 +13,6 @@ const words = [
   "rester",
   "general",
   "preuve",
-  "os",
   "planter",
   "baguette",
   "rue",
@@ -40,34 +39,37 @@ function getRandomWord() {
   return words[Math.floor(Math.random() * words.length)];
 }
 
-function isCorrectLetter() {
-  let letter = document.getElementById("letter").value;
+function tryLetter() {
+  let current = document.getElementById("letter").value;
   const letterIndexes = [];
 
   // verify if the letter is already tried
-  if (!triedLetters.includes(letter)) {
-    triedLetters.push(letter);
+  if (!triedLetters.includes(current)) {
+    triedLetters.push(current);
+
     // verify if the word contains the letter
     for (var i = 0; i < word.length; i++) {
-      if (word[i] === letter) {
+      if (word[i] === current) {
         letterIndexes.push(i);
       }
+    }
 
-      count++;
+    // update result to display correct letters
+    for (var i = 0; i < letterIndexes.length; i++) {
+      result[letterIndexes[i]] = current;
     }
   }
-  document.getElementById("app").innerHTML += result;
-  document.getElementById("app").innerHTML += word[0];
+  displayHiddenWord();
 }
 
 function displayHiddenWord() {
+  var res = "";
   for (const e of result) {
-    document.getElementById("hidden_word").innerHTML += " " + e;
+    res += " " + e;
   }
+  document.getElementById("hidden_word").innerHTML = res;
 }
 
-document
-  .getElementById("game_input")
-  .addEventListener("submit", isCorrectLetter);
+document.getElementById("game_input").addEventListener("submit", tryLetter);
 
 displayHiddenWord();
