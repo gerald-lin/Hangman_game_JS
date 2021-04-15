@@ -26,6 +26,9 @@ const triedLetters = [];
 const result = getRes();
 let count = 0;
 
+displayHiddenWord();
+displayCount();
+
 function getRes() {
   const res = [];
   //for (const i of Array(word.length).keys()) {
@@ -54,12 +57,17 @@ function tryLetter() {
       }
     }
 
+    if (letterIndexes.length === 0) {
+      count++;
+    }
+
     // update result to display correct letters
     for (var i = 0; i < letterIndexes.length; i++) {
       result[letterIndexes[i]] = current;
     }
   }
   displayHiddenWord();
+  displayCount();
 }
 
 function displayHiddenWord() {
@@ -68,8 +76,11 @@ function displayHiddenWord() {
     res += " " + e;
   }
   document.getElementById("hidden_word").innerHTML = res;
+  document.getElementById("tried_letters").innerHTML = triedLetters;
+}
+
+function displayCount() {
+  document.getElementById("count_text").innerHTML = count;
 }
 
 document.getElementById("game_input").addEventListener("submit", tryLetter);
-
-displayHiddenWord();
