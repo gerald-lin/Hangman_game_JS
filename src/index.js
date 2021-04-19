@@ -25,6 +25,7 @@ var word = getRandomWord();
 const triedLetters = [];
 const result = getRes();
 let count = 0;
+let difficulty = 8;
 
 displayHiddenWord();
 displayCount();
@@ -40,6 +41,13 @@ function getRes() {
 
 function getRandomWord() {
   return words[Math.floor(Math.random() * words.length)];
+}
+
+function gameLost() {
+  document.getElementById("count_text").innerHTML = "Lost !";
+  document
+    .getElementById("game_input")
+    .removeEventListener("submit", tryLetter);
 }
 
 function tryLetter() {
@@ -59,10 +67,15 @@ function tryLetter() {
 
     if (letterIndexes.length === 0) {
       count++;
+      // verify if game is lost
+      if (count === difficulty) {
+        gameLost();
+        return;
+      }
     }
 
     // update result to display correct letters
-    for (var i = 0; i < letterIndexes.length; i++) {
+    for (i = 0; i < letterIndexes.length; i++) {
       result[letterIndexes[i]] = current;
     }
   }
@@ -80,7 +93,7 @@ function displayHiddenWord() {
 }
 
 function displayCount() {
-  document.getElementById("count_text").innerHTML = count;
+  document.getElementById("count_text").innerHTML = count + "/" + difficulty;
 }
 
 document.getElementById("game_input").addEventListener("submit", tryLetter);
