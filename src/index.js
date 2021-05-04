@@ -19,16 +19,15 @@ const words = [
   "parapluie"
 ];
 
-var word = getRandomWord();
-const triedLetters = [];
-const result = getRes();
-let count = 0;
+let word;
+let triedLetters;
+let result;
+let count;
 let difficulty = 8;
 
-displayHiddenWord();
-displayCount();
+setGame();
 
-function getRes() {
+function getRes(lst) {
   const res = [];
   //for (const i of Array(word.length).keys()) {
   for (var i = 0; i < word.length; i++) {
@@ -46,6 +45,17 @@ function gameLost() {
   document
     .getElementById("game_input")
     .removeEventListener("submit", tryLetter);
+  document.getElementById("submit").disabled = true;
+}
+
+function setGame() {
+  document.getElementById("submit").disabled = false;
+  document.getElementById("game_input").addEventListener("submit", tryLetter);
+  word = getRandomWord();
+  count = 0;
+  result = getRes();
+  triedLetters = [];
+  refresh();
 }
 
 function tryLetter() {
@@ -77,8 +87,7 @@ function tryLetter() {
       result[letterIndexes[i]] = current;
     }
   }
-  displayHiddenWord();
-  displayCount();
+  refresh();
 }
 
 function displayHiddenWord() {
@@ -94,4 +103,9 @@ function displayCount() {
   document.getElementById("count_text").innerHTML = count + "/" + difficulty;
 }
 
-document.getElementById("game_input").addEventListener("submit", tryLetter);
+function refresh() {
+  displayHiddenWord();
+  displayCount();
+}
+
+document.getElementById("game_input").addEventListener("reset", setGame);
